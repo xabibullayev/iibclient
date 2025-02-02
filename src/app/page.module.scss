@@ -1,0 +1,104 @@
+.home {
+  width: 100vw;
+  height: 100vh;
+
+  .card {
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      select {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        border: 1px solid gray;
+        border-radius: 5px;
+      }
+
+      button {
+        width: 100%;
+        background-color: tomato;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 10px;
+      }
+    }
+  }
+
+  .refreshPage {
+    position: fixed;
+    right: 9.5px;
+    bottom: 40px;
+    border: none;
+    background: none;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    .refreshIcon {
+      font-size: 25px;
+    }
+  }
+
+  .top {
+    width: 100vw;
+    position: fixed;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+
+    .left {
+      display: flex;
+      gap: 20px;
+
+      .all {
+        background-color: #fff;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        width: max-content;
+        padding: 5px 15px;
+        gap: 10px;
+
+        p {
+          // font-weight: bold;
+          font-size: 15px;
+        }
+      }
+
+      .type {
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        width: max-content;
+
+        select {
+          background-color: #fff;
+          width: 100%;
+          border-radius: 20px;
+          padding: 6px 10px;
+          outline: none;
+        }
+      }
+    }
+
+    .right {
+      .users {
+        a {
+          background-color: #fff;
+          border-radius: 20px;
+          padding: 5px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
