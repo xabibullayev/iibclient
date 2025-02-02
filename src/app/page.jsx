@@ -2,10 +2,10 @@
 import styles from "./page.module.scss";
 import Map, { Marker, Popup } from "react-map-gl";
 import VideocamIcon from "@mui/icons-material/Videocam";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import RefResh from "@/components/refresh/RefResh";
 import Link from "next/link";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
@@ -14,6 +14,7 @@ export default function Home() {
   const [type, setType] = useState("");
   const [newPlace, setNewPlace] = useState();
   const [currentPlaceId, setCurrentPlaceId] = useState("");
+  const [address, setAddress] = useState("");
 
   const [selectedType, setSelectedType] = useState("all");
   const [filteredPins, setFilteredPins] = useState(pins);
@@ -48,7 +49,7 @@ export default function Home() {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`https://ibbapi.onrender.com/pins/${id}`)
+      .delete(`https://ibbapi.onrender.com/${id}`)
       .then((res) => {
         console.log(res.data);
         setPins(pins.filter((pin) => pin._id !== id));
@@ -59,9 +60,32 @@ export default function Home() {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+
+    let title = "";
+    switch (type) {
+      case "ptz":
+        title = "ПТЗ камера";
+        break;
+      case "obz":
+        title = "Обзорний камера";
+        break;
+      case "lis":
+        title = "Распознавание лиц";
+        break;
+      case "avto":
+        title = "Распознавание авто номер";
+        break;
+      case "radar":
+        title = "Радар";
+        break;
+      default:
+        break;
+    }
 
     const newPin = {
+      address: address,
+      title: title,
       type: type,
       long: newPlace.long,
       lat: newPlace.lat,
@@ -103,7 +127,17 @@ export default function Home() {
           <React.Fragment key={pin._id}>
             <Marker longitude={pin.long} latitude={pin.lat} anchor="bottom">
               <div onClick={() => handleMarkerClick(pin._id)}>
-                <VideocamIcon />
+                {pin.type === "ptz" ? (
+                  <img src="ptz.png" alt="" className={styles.cameraIcon} />
+                ) : pin.type === "lis" ? (
+                  <img src="lis.png" alt="" className={styles.cameraIcon} />
+                ) : pin.type === "avto" ? (
+                  <img src="avto.png" alt="" className={styles.cameraIcon} />
+                ) : pin.type === "radar" ? (
+                  <img src="radar.png" alt="" className={styles.cameraIcon} />
+                ) : (
+                  <VideocamIcon />
+                )}
               </div>
             </Marker>
 
@@ -113,10 +147,10 @@ export default function Home() {
                 latitude={pin.lat}
                 anchor="bottom"
                 closeOnClick={false}
-                style={{ width: "200px" }}
+                onClose={() => setCurrentPlaceId(null)}
               >
-                <div className={styles.card}>
-                  <p>{pin.type}</p>
+                <div className={styles.delete}>
+                  <p>{pin.title}</p>
                   <button onClick={() => handleDelete(pin._id)}>Oshiriw</button>
                 </div>
               </Popup>
@@ -132,20 +166,29 @@ export default function Home() {
           >
             <div className={styles.card}>
               <form onSubmit={handleSubmit}>
+                <label htmlFor="">Kamera</label>
+                <input
+                  type="text"
+                  placeholder="Obiekt"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
                 <select onChange={(e) => setType(e.target.value)}>
                   <option value="" hidden>
-                    Camera turi
+                    Kamera turi
                   </option>
-                  <option value="ptz">PTZ камера</option>
-                  <option value="obz">Oбзорный камера</option>
-                  <option value="lis">Pаспознавание лиц</option>
-                  <option value="avto">Pаспознавание авто номер</option>
+                  <option value="ptz">ПТЗ камера</option>
+                  <option value="obz">Обзорний камера</option>
+                  <option value="lis">Распознавание лиц</option>
+                  <option value="avto">Распознавание авто номер</option>
+                  <option value="radar">Радар</option>
                 </select>
                 <button>Saqlaw</button>
               </form>
             </div>
           </Popup>
         )}
+
         <div className={styles.top}>
           <div className={styles.left}>
             <div className={styles.all}>
@@ -160,11 +203,12 @@ export default function Home() {
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
               >
-                <option value="all">Hammesi</option>
-                <option value="ptz">PTZ камера</option>
-                <option value="obz">Oбзорный камера</option>
-                <option value="lis">Pаспознавание лиц</option>
-                <option value="avto">Pаспознавание авто номер</option>
+                <option value="all">Ҳәммеси</option>
+                <option value="ptz">ПТЗ камера</option>
+                <option value="obz">Обзорний камера</option>
+                <option value="lis">Распознавание лиц</option>
+                <option value="avto">Распознавание авто номер</option>
+                <option value="radar">Радар</option>
               </select>
             </div>
           </div>
@@ -178,12 +222,7 @@ export default function Home() {
           </div>
         </div>
 
-        <button
-          onClick={() => window.location.reload()}
-          className={styles.refreshPage}
-        >
-          <RefreshIcon className={styles.refreshIcon} />
-        </button>
+        <RefResh />
       </Map>
     </div>
   );

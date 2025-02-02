@@ -1,0 +1,72 @@
+.users {
+  background-color: #f0f1f7;
+  min-height: 100vh;
+  padding: 10px;
+  color: #333335;
+
+  .main {
+    background-color: #fff;
+    border-radius: 5px;
+
+    .top {
+      border-bottom: 1px solid rgb(229, 224, 224);
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        font-size: 15px;
+        color: #333335;
+      }
+
+      a {
+        background-color: #1976d2;
+        color: white;
+        border-radius: 5px;
+        padding: 5px 20px;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+      }
+    }
+
+    .table {
+      width: 100%;
+      padding: 10px;
+
+      table {
+        border: 1px solid rgb(229, 224, 224);
+        border-collapse: collapse;
+        width: 100%;
+
+        td {
+          padding: 5px;
+          border: 1px solid rgb(229, 224, 224);
+          border-collapse: collapse;
+
+          div {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+
+            button {
+              border: none;
+              background: none;
+            }
+
+            .deleteIcon {
+              color: crimson;
+              font-size: 20px;
+            }
+
+            .editIcon {
+              color: #1976d2;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
