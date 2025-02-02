@@ -42,7 +42,7 @@ export default function Home() {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`https://ibbapi.onrender.com/${id}`)
+      .delete(`https://ibbapi.onrender.com/pins/${id}`)
       .then((res) => {
         console.log(res.data);
         setPins(pins.filter((pin) => pin._id !== id));
