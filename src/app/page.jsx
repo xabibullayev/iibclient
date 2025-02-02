@@ -5,7 +5,6 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import RefResh from "@/components/refresh/RefResh";
 import Link from "next/link";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -50,7 +49,7 @@ export default function Home() {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`https://ibbapi.onrender.com/${id}`)
+      .delete(`https://ibbapi.onrender.com/pins/${id}`)
       .then((res) => {
         console.log(res.data);
         setPins(pins.filter((pin) => pin._id !== id));
