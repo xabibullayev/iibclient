@@ -8,6 +8,7 @@ import axios from "axios";
 import RefResh from "@/components/refresh/RefResh";
 import Link from "next/link";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 export default function Home() {
   const [pins, setPins] = useState([]);
@@ -222,7 +223,12 @@ export default function Home() {
           </div>
         </div>
 
-        <RefResh />
+        <button
+          onClick={() => window.location.reload()}
+          className={styles.refreshPage}
+        >
+          <RefreshIcon className={styles.refreshIcon} />
+        </button>
       </Map>
     </div>
   );
