@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPins = async () => {
       await axios
-        .get("http://localhost:5000/pins")
+        .get("https://ibbapi.onrender.com/pins")
         .then((res) => {
           setPins(res.data);
         })
@@ -42,7 +42,7 @@ export default function Home() {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`http://localhost:5000/pins/${id}`)
+      .delete(`https://ibbapi.onrender.com/${id}`)
       .then((res) => {
         console.log(res.data);
         setPins(pins.filter((pin) => pin._id !== id));
@@ -62,7 +62,7 @@ export default function Home() {
     };
 
     await axios
-      .post("http://localhost:5000/pins", newPin)
+      .post("https://ibbapi.onrender.com/pins", newPin)
       .then((res) => {
         console.log(res.data);
       })
